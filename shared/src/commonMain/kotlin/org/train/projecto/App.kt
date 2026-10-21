@@ -1,35 +1,30 @@
 package org.train.projecto
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
-import org.jetbrains.compose.resources.painterResource
-
-import kotlinproject.shared.generated.resources.Res
-import kotlinproject.shared.generated.resources.compose_multiplatform
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import org.koin.compose.viewmodel.koinViewModel
 import org.train.projecto.presentation.navigation.AppNavigation
-
+import org.train.projecto.presentation.LightColorScheme
+import org.train.projecto.presentation.DarkColorScheme
+import org.train.projecto.presentation.uiStates.SettingsUiState
+import org.train.projecto.presentation.viewmodels.SettingsViewModel
 
 @Composable
-@Preview
 fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        AppNavigation()
+    val settingsViewModel: SettingsViewModel = koinViewModel()
+    val settingsState by settingsViewModel.uiState.collectAsState()
+
+    val isDarkTheme = when (val state = settingsState) {
+        is SettingsUiState.Success -> state.settings.isDarkTheme
+        SettingsUiState.Loading,
+        is SettingsUiState.Error -> false
+    }
+
+    MaterialTheme(
+        colorScheme = if (isDarkTheme) DarkColorScheme else LightColorScheme
+    ) {
+        AppNavigation(settingsViewModel = settingsViewModel)
     }
 }

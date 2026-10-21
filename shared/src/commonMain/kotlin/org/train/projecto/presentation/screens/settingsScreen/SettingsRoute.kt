@@ -9,7 +9,7 @@ import org.train.projecto.presentation.viewmodels.SettingsViewModel
 @Composable
 fun SettingsRoute(
     onBack: () -> Unit,
-    viewModel: SettingsViewModel = koinViewModel()
+    viewModel: SettingsViewModel
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
