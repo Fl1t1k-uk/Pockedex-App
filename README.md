@@ -1,6 +1,6 @@
-# Pocketdex
+# Pockedex
 
-Pocketdex is a cross-platform Pokédex app for Android and iOS. It lets trainers browse Pokémon, search the local Pokédex, view detailed stats, and build a personal collection—all in a shared Kotlin Multiplatform codebase.
+Pockedex is a cross-platform Pokédex app for Android and iOS. It lets trainers browse Pokémon, search the local Pokédex, view detailed stats, and build a personal collection—all in a shared Kotlin Multiplatform codebase.
 
 ## Features
 
@@ -78,7 +78,7 @@ The SwiftUI app hosts the shared Compose UI and initializes the shared dependenc
 
 ## How it works
 
-On the first launch, Pocketdex downloads up to 2,000 Pokémon previews from PokéAPI and stores them locally. Subsequent searching, collection management, and recently viewed lists use the local database; Pokémon details are requested when opened. Settings such as nickname, language, and theme are kept in DataStore.
+On the first launch, Pockedex downloads up to 2,000 Pokémon previews from PokéAPI and stores them locally. Subsequent searching, collection management, and recently viewed lists use the local database; Pokémon details are requested when opened. Settings such as nickname, language, and theme are kept in DataStore.
 
 An internet connection is required for the initial download and for loading Pokémon detail data and images.
 
