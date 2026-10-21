@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.train.projecto.presentation.uiStates.DownloadUiState
+import org.train.projecto.presentation.localization.LocalStrings
 
 @Composable
 fun DownloadScreen(
@@ -24,6 +25,7 @@ fun DownloadScreen(
     onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val strings = LocalStrings.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -36,12 +38,12 @@ fun DownloadScreen(
                 CircularProgressIndicator()
                 Spacer(Modifier.height(24.dp))
                 Text(
-                    text = "Downloading Pokémon…",
+                    text = strings.downloadingPokemon,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "This only happens once",
+                    text = strings.downloadOnce,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -56,7 +58,7 @@ fun DownloadScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 Button(onClick = onRetry) {
-                    Text("Retry")
+                    Text(strings.retry)
                 }
             }
         }

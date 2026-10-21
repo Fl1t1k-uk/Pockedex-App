@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.train.projecto.data.local.datastore.AppSettings
+import org.train.projecto.presentation.localization.LocalStrings
 
 @Composable
 fun SettingsContent(
@@ -35,6 +36,7 @@ fun SettingsContent(
     onChangeNickname: (String) -> Unit,
     onChangeLanguage: (String) -> Unit
 ) {
+    val strings = LocalStrings.current
     var nickname by remember(settings.nickname) {
         mutableStateOf(settings.nickname)
     }
@@ -46,18 +48,18 @@ fun SettingsContent(
             .verticalScroll(rememberScrollState())
     ) {
         TextButton(onClick = onBack) {
-            Text("← Back")
+            Text(strings.back)
         }
 
         Text(
-            text = "Settings",
+            text = strings.settings,
             style = MaterialTheme.typography.headlineMedium
         )
 
         Spacer(Modifier.height(28.dp))
 
         Text(
-            text = "Profile",
+            text = strings.profile,
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -68,7 +70,7 @@ fun SettingsContent(
             onValueChange = { nickname = it },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            label = { Text("Nickname") }
+            label = { Text(strings.nickname) }
         )
 
         Spacer(Modifier.height(8.dp))
@@ -80,13 +82,13 @@ fun SettingsContent(
             enabled = nickname.trim().isNotBlank() &&
                     nickname.trim() != settings.nickname
         ) {
-            Text("Save nickname")
+            Text(strings.saveNickname)
         }
 
         Spacer(Modifier.height(28.dp))
 
         Text(
-            text = "Appearance",
+            text = strings.appearance,
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -98,9 +100,9 @@ fun SettingsContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column {
-                Text("Dark theme")
+                Text(strings.darkTheme)
                 Text(
-                    text = if (settings.isDarkTheme) "Enabled" else "Disabled",
+                    text = if (settings.isDarkTheme) strings.enabled else strings.disabled,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -114,7 +116,7 @@ fun SettingsContent(
         Spacer(Modifier.height(28.dp))
 
         Text(
-            text = "Language",
+            text = strings.language,
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -126,13 +128,13 @@ fun SettingsContent(
             FilterChip(
                 selected = settings.languageCode == "uk",
                 onClick = { onChangeLanguage("uk") },
-                label = { Text("Українська") }
+                label = { Text(strings.ukrainian) }
             )
 
             FilterChip(
                 selected = settings.languageCode == "en",
                 onClick = { onChangeLanguage("en") },
-                label = { Text("English") }
+                label = { Text(strings.english) }
             )
         }
     }

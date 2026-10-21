@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import org.train.projecto.domain.models.PokemonDetails
 import org.train.projecto.presentation.uiStates.PokemonDetailsUiState
+import org.train.projecto.presentation.localization.LocalStrings
 
 private const val MAX_STAT_VALUE = 255f
 
@@ -51,6 +52,7 @@ fun PokemonDetailsScreen(
     onToggleCollection: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val strings = LocalStrings.current
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -60,7 +62,7 @@ fun PokemonDetailsScreen(
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = strings.back
                         )
                     }
                 }
@@ -107,6 +109,7 @@ private fun PokemonDetailsContent(
     isInCollection: Boolean,
     onToggleCollection: () -> Unit
 ) {
+    val strings = LocalStrings.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -143,7 +146,7 @@ private fun PokemonDetailsContent(
 
         // Number
         Text(
-            text = "#${details.id.toString().padStart(3, '0')}",
+            text = strings.pokemonNumber(details.id),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -168,20 +171,20 @@ private fun PokemonDetailsContent(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(vertical = 14.dp)
         ) {
-            Text(if (isInCollection) "Remove from Collection" else "Add to Collection")
+            Text(if (isInCollection) strings.removeFromCollection else strings.addToCollection)
         }
 
         Spacer(Modifier.height(24.dp))
 
         // Body sections (left-aligned)
         Column(modifier = Modifier.fillMaxWidth()) {
-            SectionTitle("About")
-            InfoRow(label = "Height", value = "${details.heightM} m")
-            InfoRow(label = "Weight", value = "${details.weightKg} kg")
+            SectionTitle(strings.about)
+            InfoRow(label = strings.height, value = strings.heightValue(details.heightM))
+            InfoRow(label = strings.weight, value = strings.weightValue(details.weightKg))
 
             Spacer(Modifier.height(20.dp))
 
-            SectionTitle("Abilities")
+            SectionTitle(strings.abilities)
             details.abilities.forEach { ability ->
                 Text(
                     text = "• ${ability.replaceFirstChar { it.uppercase() }}",
@@ -192,7 +195,7 @@ private fun PokemonDetailsContent(
 
             Spacer(Modifier.height(20.dp))
 
-            SectionTitle("Base Stats")
+            SectionTitle(strings.baseStats)
             details.stats.forEach { stat ->
                 StatRow(name = stat.stat, value = stat.baseStat)
             }

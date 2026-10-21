@@ -44,6 +44,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import org.train.projecto.presentation.localization.LocalStrings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,13 +54,14 @@ fun CollectionScreen(
     onOpenPokemon: (Int) -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
+    val strings = LocalStrings.current
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "My Collection",
+                        text = strings.myCollection,
                         fontWeight = FontWeight.Bold
                     )
                 },
@@ -67,7 +69,7 @@ fun CollectionScreen(
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Go back"
+                            contentDescription = strings.goBack
                         )
                     }
                 }
@@ -126,7 +128,7 @@ fun CollectionScreen(
                             modifier = Modifier.padding(20.dp)
                         ) {
                             Text(
-                                text = "YOUR ADVENTURE",
+                                text = strings.yourAdventure,
                                 style = MaterialTheme.typography.labelMedium,
                                 letterSpacing = 2.sp,
                                 color = colors.onPrimaryContainer
@@ -135,7 +137,7 @@ fun CollectionScreen(
                             Spacer(Modifier.height(8.dp))
 
                             Text(
-                                text = "${pokemons.size} Pokémon",
+                                text = strings.pokemonCount(pokemons.size),
                                 style = MaterialTheme.typography.headlineMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = colors.onPrimaryContainer
@@ -144,7 +146,7 @@ fun CollectionScreen(
                             Spacer(Modifier.height(4.dp))
 
                             Text(
-                                text = "Every discovery is part of your story.",
+                                text = strings.collectionStory,
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = colors.onPrimaryContainer
                             )
@@ -165,7 +167,7 @@ fun CollectionScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "No Pokémon yet",
+                                    text = strings.noPokemonYet,
                                     style = MaterialTheme.typography.titleLarge,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -173,7 +175,7 @@ fun CollectionScreen(
                                 Spacer(Modifier.height(8.dp))
 
                                 Text(
-                                    text = "Explore the Pokédex and add Pokémon to your collection!",
+                                    text = strings.emptyCollectionHint,
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = colors.onSurfaceVariant,
                                     textAlign = TextAlign.Center
@@ -182,7 +184,7 @@ fun CollectionScreen(
                         }
                     } else {
                         Text(
-                            text = "Collected Pokémon",
+                            text = strings.collectedPokemon,
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold
                         )
@@ -242,7 +244,7 @@ fun CollectionScreen(
                                         Spacer(Modifier.height(4.dp))
 
                                         Text(
-                                            text = "#${pokemon.id.toString().padStart(3, '0')}",
+                                            text = strings.pokemonNumber(pokemon.id),
                                             style = MaterialTheme.typography.bodyMedium,
                                             color = colors.onSurfaceVariant
                                         )

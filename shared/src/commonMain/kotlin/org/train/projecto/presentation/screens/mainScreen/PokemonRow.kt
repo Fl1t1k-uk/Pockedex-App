@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import org.train.projecto.domain.models.PokemonPreview
+import org.train.projecto.presentation.localization.LocalStrings
 
 @Composable
 fun PokemonRow(
@@ -29,8 +30,9 @@ fun PokemonRow(
     onOpenPokemon: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val strings = LocalStrings.current
     if (pokemons.isEmpty()) {
-        Text("No Pokémon found")
+        Text(strings.noPokemonFound)
         return
     }
 
@@ -71,7 +73,7 @@ fun PokemonRow(
                     Spacer(Modifier.height(4.dp))
 
                     Text(
-                        text = "#${pokemon.id.toString().padStart(3, '0')}",
+                        text = strings.pokemonNumber(pokemon.id),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
