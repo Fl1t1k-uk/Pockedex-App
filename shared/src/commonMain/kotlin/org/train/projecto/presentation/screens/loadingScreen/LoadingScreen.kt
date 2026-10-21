@@ -24,9 +24,11 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.train.projecto.presentation.localization.LocalStrings
 
 @Composable
 fun LoadingScreen() {
+    val strings = LocalStrings.current
     val infiniteTransition = rememberInfiniteTransition()
 
     val rotation by infiniteTransition.animateFloat(
@@ -135,7 +137,7 @@ fun LoadingScreen() {
         Spacer(modifier = Modifier.height(36.dp))
 
         Text(
-            text = "POCKETDEX",
+            text = strings.appName,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold,
             letterSpacing = 4.sp
@@ -144,7 +146,7 @@ fun LoadingScreen() {
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "Preparing your adventure...",
+            text = strings.preparingAdventure,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
         )
@@ -164,7 +166,7 @@ fun LoadingScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Gotta catch 'em all!",
+            text = strings.catchphrase,
             style = MaterialTheme.typography.bodyMedium,
             fontStyle = FontStyle.Italic,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)

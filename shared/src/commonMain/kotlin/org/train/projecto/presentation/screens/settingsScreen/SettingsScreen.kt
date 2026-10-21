@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.train.projecto.presentation.uiStates.SettingsUiState
+import org.train.projecto.presentation.localization.LocalStrings
 
 @Composable
 fun SettingsScreen(
@@ -23,6 +24,7 @@ fun SettingsScreen(
     onChangeNickname: (String) -> Unit,
     onChangeLanguage: (String) -> Unit
 ) {
+    val strings = LocalStrings.current
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -44,7 +46,7 @@ fun SettingsScreen(
                         .padding(20.dp)
                 ) {
                     TextButton(onClick = onBack) {
-                        Text("← Back")
+                        Text(strings.back)
                     }
 
                     Text(

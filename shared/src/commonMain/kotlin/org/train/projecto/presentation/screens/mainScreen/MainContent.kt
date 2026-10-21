@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.train.projecto.presentation.uiStates.MainUiState
+import org.train.projecto.presentation.localization.LocalStrings
 
 @Composable
 fun MainContent(
@@ -34,6 +35,7 @@ fun MainContent(
     onOpenPokedex: () -> Unit,
     onOpenSettings: () -> Unit
 ) {
+    val strings = LocalStrings.current
     Scaffold(
         bottomBar = {
             NavigationBar {
@@ -41,14 +43,14 @@ fun MainContent(
                     selected = true,
                     onClick = {},
                     icon = { Text("🏠") },
-                    label = { Text("Home") }
+                    label = { Text(strings.home) }
                 )
 
                 NavigationBarItem(
                     selected = false,
                     onClick = onOpenPokedex,
                     icon = { Text("🔍") },
-                    label = { Text("Pokédex") }
+                    label = { Text(strings.pokedex) }
                 )
 
             }
@@ -67,7 +69,7 @@ fun MainContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Hello, ${state.nickname}",
+                    text = strings.greeting(state.nickname),
                     style = MaterialTheme.typography.headlineSmall
                 )
 
@@ -83,7 +85,7 @@ fun MainContent(
                 onValueChange = onSearchQueryChanged,
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
-                placeholder = { Text("Search Pokémon...") },
+                placeholder = { Text(strings.searchPokemon) },
                 leadingIcon = { Text("🔍") }
             )
 
@@ -91,7 +93,7 @@ fun MainContent(
 
             if (state.searchQuery.isNotBlank()) {
                 Text(
-                    text = "Search results",
+                    text = strings.searchResults,
                     style = MaterialTheme.typography.titleMedium
                 )
 
@@ -103,7 +105,7 @@ fun MainContent(
                 )
             } else {
                 Text(
-                    text = "Recently discovered",
+                    text = strings.recentlyDiscovered,
                     style = MaterialTheme.typography.titleMedium
                 )
 
@@ -118,7 +120,7 @@ fun MainContent(
             Spacer(Modifier.height(28.dp))
 
             Text(
-                text = "My Collection",
+                text = strings.myCollection,
                 style = MaterialTheme.typography.titleMedium
             )
 
@@ -138,17 +140,17 @@ fun MainContent(
                 ) {
                     Column {
                         Text(
-                            text = "🎒 ${state.collectionCount} Pokémon",
+                            text = strings.collectionCount(state.collectionCount),
                             style = MaterialTheme.typography.titleMedium
                         )
 
                         Text(
-                            text = "Your collection",
+                            text = strings.yourCollection,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
 
-                    Text("View all →")
+                    Text(strings.viewAll)
                 }
             }
         }

@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import org.train.projecto.domain.models.PokemonPreview
 import org.train.projecto.presentation.uiStates.SearchUiState
+import org.train.projecto.presentation.localization.LocalStrings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,18 +56,19 @@ fun SearchScreen(
     onOpenPokemon: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val strings = LocalStrings.current
     val query = (uiState as? SearchUiState.Success)?.searchQuery.orEmpty()
 
     Scaffold(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = { Text("Search Pokémon") },
+                title = { Text(strings.searchPokemon) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = strings.back
                         )
                     }
                 }
@@ -105,8 +107,8 @@ fun SearchScreen(
 
                     is SearchUiState.Success -> {
                         when {
-                            uiState.searchQuery.isBlank() -> CenteredMessage("Start typing to search Pokémon")
-                            uiState.results.isEmpty() -> CenteredMessage("No Pokémon found")
+                            uiState.searchQuery.isBlank() -> CenteredMessage(strings.startTyping)
+                            uiState.results.isEmpty() -> CenteredMessage(strings.noPokemonFound)
                             else -> SearchResults(
                                 pokemons = uiState.results,
                                 onOpenPokemon = onOpenPokemon
@@ -137,7 +139,7 @@ private fun SearchField(
         value = query,
         onValueChange = onQueryChange,
         modifier = modifier.focusRequester(focusRequester),
-        placeholder = { Text("Search Pokémon") },
+        placeholder = { Text(LocalStrings.current.searchPokemon) },
         singleLine = true,
         shape = RoundedCornerShape(28.dp),
         leadingIcon = {
@@ -146,7 +148,7 @@ private fun SearchField(
         trailingIcon = {
             if (query.isNotEmpty()) {
                 IconButton(onClick = { onQueryChange("") }) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "Clear")
+                    Icon(imageVector = Icons.Default.Close, contentDescription = LocalStrings.current.clear)
                 }
             }
         },
@@ -206,7 +208,7 @@ private fun PokemonSearchItem(
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "#${pokemon.id.toString().padStart(3, '0')}",
+                    text = LocalStrings.current.pokemonNumber(pokemon.id),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

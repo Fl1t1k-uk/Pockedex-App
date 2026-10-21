@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.train.projecto.presentation.uiStates.LoginUiState
+import org.train.projecto.presentation.localization.LocalStrings
 
 @Composable
 fun LoginScreen(
@@ -26,6 +27,7 @@ fun LoginScreen(
     onNicknameChanged: (String) -> Unit,
     onLogin: () -> Unit
 ) {
+    val strings = LocalStrings.current
     val colors = MaterialTheme.colorScheme
 
     Box(
@@ -61,7 +63,7 @@ fun LoginScreen(
 
             // App name
             Text(
-                text = "POCKETDEX",
+                text = strings.appName,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.ExtraBold,
                 letterSpacing = 3.sp,
@@ -71,7 +73,7 @@ fun LoginScreen(
             Spacer(Modifier.height(12.dp))
 
             Text(
-                text = "Your Pokémon journey starts here.",
+                text = strings.journeyStarts,
                 style = MaterialTheme.typography.bodyLarge,
                 color = colors.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -85,7 +87,7 @@ fun LoginScreen(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Welcome, Trainer!",
+                    text = strings.welcomeTrainer,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     color = colors.onBackground
@@ -94,7 +96,7 @@ fun LoginScreen(
                 Spacer(Modifier.height(8.dp))
 
                 Text(
-                    text = "Choose a nickname to begin your adventure.",
+                    text = strings.chooseNickname,
                     style = MaterialTheme.typography.bodyMedium,
                     color = colors.onSurfaceVariant
                 )
@@ -108,10 +110,10 @@ fun LoginScreen(
                 onValueChange = onNicknameChanged,
                 modifier = Modifier.fillMaxWidth(),
                 label = {
-                    Text("Your nickname")
+                    Text(strings.nickname)
                 },
                 placeholder = {
-                    Text("e.g. Ash")
+                    Text(strings.nicknameExample)
                 },
                 leadingIcon = {
                     Icon(
@@ -130,7 +132,7 @@ fun LoginScreen(
                             color = colors.error
                         )
                     } else {
-                        Text("This is how other trainers will know you.")
+                        Text(strings.nicknameHint)
                     }
                 }
             )
@@ -156,10 +158,10 @@ fun LoginScreen(
 
                     Spacer(Modifier.width(12.dp))
 
-                    Text("Getting ready...")
+                    Text(strings.gettingReady)
                 } else {
                     Text(
-                        text = "Start your adventure",
+                        text = strings.startAdventure,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -176,7 +178,7 @@ fun LoginScreen(
             Spacer(Modifier.height(24.dp))
 
             Text(
-                text = "Gotta catch 'em all!",
+                text = strings.catchphrase,
                 style = MaterialTheme.typography.labelLarge,
                 color = colors.onSurfaceVariant
             )
