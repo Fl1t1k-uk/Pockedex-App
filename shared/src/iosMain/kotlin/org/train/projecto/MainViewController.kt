@@ -7,6 +7,5 @@ import org.train.projecto.data.local.getDatabaseBuilder
 
 fun MainViewController() = ComposeUIViewController { App()
     // iosMain
-    val database: AppDatabase by lazy { createDatabase(getDatabaseBuilder()) }
 
 }

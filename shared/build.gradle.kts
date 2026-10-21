@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.koin.compiler)
+
 }
 
 kotlin {
@@ -65,6 +67,8 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.compose.icons.core)
+            implementation(libs.kotlinx.coroutines.test)
 
             // Ktor + WebSocket + JSON
             implementation(libs.ktor.client.core)
@@ -72,20 +76,34 @@ kotlin {
             implementation(libs.ktor.client.contentNegotiation)
             implementation(libs.ktor.serialization.kotlinxJson)
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.ktor.client.cio)
 
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.annotations)
 
             // Room (тільки runtime! compiler підключається через KSP нижче)
             implementation(libs.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
+
+            //Datastore
+            implementation(libs.datastore.core)
+            implementation(libs.datastore.preferences.core)
+
+            //Navigation
+            implementation(libs.androidx.navigation)
+
+            //Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
         }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.ktor.client.mock)
         }
     }
 }

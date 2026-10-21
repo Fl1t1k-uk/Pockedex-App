@@ -17,7 +17,11 @@ class PokemonApi(private val client: HttpClient) {
 
     }
 
-    suspend fun getPokemon(id: Int): PokemonDto {
+    suspend fun getPokemonById(id: Int): PokemonDto {
         return client.get("pokemon/$id").body()
+    }
+
+    suspend fun getPokemonByName(query: String): PokemonDto{
+        return client.get("pokemon/$query").body()
     }
 }

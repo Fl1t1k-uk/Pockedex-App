@@ -1,7 +1,9 @@
 package org.train.projecto.data.local
 
 import android.app.Application
-
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.train.projecto.di.initKoin
 
 
 // androidApp (або shared/androidMain, залежно від структури)
@@ -11,6 +13,10 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        database = createDatabase(getDatabaseBuilder(this))
+        initKoin {
+            androidContext(this@App)
+            androidLogger()   // опційно
+
+        }
     }
 }
