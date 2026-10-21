@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -22,41 +23,46 @@ fun SettingsScreen(
     onChangeNickname: (String) -> Unit,
     onChangeLanguage: (String) -> Unit
 ) {
-    when (uiState) {
-        SettingsUiState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-
-        is SettingsUiState.Error -> {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(20.dp)
-            ) {
-                TextButton(onClick = onBack) {
-                    Text("← Back")
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        when (uiState) {
+            SettingsUiState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
+            }
 
-                Text(
-                    text = uiState.error,
-                    color = MaterialTheme.colorScheme.error
+            is SettingsUiState.Error -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(20.dp)
+                ) {
+                    TextButton(onClick = onBack) {
+                        Text("← Back")
+                    }
+
+                    Text(
+                        text = uiState.error,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
+
+            is SettingsUiState.Success -> {
+                SettingsContent(
+                    settings = uiState.settings,
+                    onBack = onBack,
+                    onToggleTheme = onToggleTheme,
+                    onChangeNickname = onChangeNickname,
+                    onChangeLanguage = onChangeLanguage
                 )
             }
-        }
-
-        is SettingsUiState.Success -> {
-            SettingsContent(
-                settings = uiState.settings,
-                onBack = onBack,
-                onToggleTheme = onToggleTheme,
-                onChangeNickname = onChangeNickname,
-                onChangeLanguage = onChangeLanguage
-            )
         }
     }
 }
