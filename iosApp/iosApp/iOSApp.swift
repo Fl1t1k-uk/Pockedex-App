@@ -1,9 +1,11 @@
+// xcode: set sdk=iOS
+
 import SwiftUI
 import Shared
 
 @main
 struct iOSApp: App {
-    init{
+    init(){
        StartFunctionKt.doInitKoin()
     }
     var body: some Scene {
