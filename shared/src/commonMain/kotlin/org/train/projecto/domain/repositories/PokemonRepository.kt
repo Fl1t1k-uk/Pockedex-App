@@ -1,6 +1,5 @@
 package org.train.projecto.domain.repositories
 
-import kotlinproject.shared.generated.resources.Res
 import kotlinx.coroutines.flow.Flow
 import org.train.projecto.data.local.entities.PokemonPreviewEntity
 import org.train.projecto.data.remote.dto.PokemonDto
